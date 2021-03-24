@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-#SBATCH -p batch,intel -n 8 -N 1 --mem 16gb --out logs/busco.%a.log
+#SBATCH -p batch,intel -n 8 -N 1 --mem 16gb --out logs/busco_AAFTF.%a.log
 
 
 
@@ -8,7 +8,7 @@ OUT=BUSCO
 export AUGUSTUS_CONFIG_PATH=/bigdata/stajichlab/shared/pkg/augustus/3.3/config
 CPU=1
 if [ $SLURM_CPUS_ON_NODE ]; then
-    CPU=$SLURM_CPUS_ON_NODE
+  CPU=$SLURM_CPUS_ON_NODE
 fi
 
 N=${SLURM_ARRAY_TASK_ID}
@@ -33,4 +33,8 @@ BASE=$(basename $INFILE .dna.fasta)
 if [ ! -d $OUT/$BASE ]; then
   module load busco/5.0.0
   busco -m genome -l sordariomycetes_odb10 -c $CPU -o $BASE --out_path $OUT --offline --augustus_species fusarium --in $INFILE --download_path $BUSCO_LINEAGES
+fi
+if [ ! -s $IN/$BASE.stats.txt ]; then
+  module load AAFTF
+  AAFTF assess -i $INFILE -r $IN/$BASE.stats.txt
 fi
