@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 #SBATCH -p short -N 1 -n 24 --mem 24gb --out logs/make_busco_CDS.%a.log
 module load miniconda3
-module load exonerate/2.4.0
+module load exonerate/2.4.1
 
 CPU=1
 if [ $SLURM_CPUS_ON_NODE ]; then
@@ -18,6 +18,6 @@ if [ -z $N ]; then
   fi
 fi
 
-python3 ./scripts/busco_to_phyling.py --temp /scratch/$USER.$$ --arrayjob $N --threads $CPU
+time python3 ./scripts/busco_to_phyling.py --temp /scratch/$USER.$$ --arrayjob $N --threads $CPU
 
 rm -rf /scratch/$USER.$$
