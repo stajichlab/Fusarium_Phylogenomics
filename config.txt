@@ -20,6 +20,7 @@ LANGUAGE=en
 JOBCPU=2 # per job CPUs
 TOTALCPU=8 # total CPUs to use
 QUEUEING=slurm
-QUEUE=batch
+QUEUE=short
+ALNCHUNK=5
 TEMP=/scratch
 # tree building - not yet integrated into PHYling
