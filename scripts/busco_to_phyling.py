@@ -190,7 +190,7 @@ orthologs = {}
 sp_folders = []
 
 pool = ThreadPool(args.threads)
-BUSCOdir = os.listdir(args.BUSCO)
+BUSCOdir = sorted(os.listdir(args.BUSCO))
 
 if args.arrayjob is not None and args.arrayjob > 0:
     dirsToRun = [BUSCOdir[args.arrayjob - 1]]
