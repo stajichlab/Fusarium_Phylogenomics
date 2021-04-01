@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-#SBATCH -p short -N 1 -n 48 --mem 96gb  -N 1 --out logs/make_CDS_trees.%A.logs
+#SBATCH -p short -N 1 -n 48 --mem 96gb  -N 1 --out logs/make_CDS_trees.%A.log
 module load fasttree
 module load IQ-TREE/2.1.1
 
