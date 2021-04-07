@@ -27,6 +27,7 @@ foreach my $file ( readdir(DIR) ) {
         if (/\s*(.+)\s+=\s+(\d+(\.\d+)?)/) {
             my ( $name, $val ) = ( $1, $2 );
             $name =~ s/\s*$//;
+	    $name =~ s/\%//;
             $stats{$stem}->{$name} = $val;
 
             #	    warn("'$name'"," '", $val,"'\n");
@@ -103,5 +104,5 @@ foreach my $file ( readdir(DIR) ) {
 
 print join( "\t", qw(SampleID), @header ), "\n";
 foreach my $sp ( sort keys %stats ) {
-    print join( "\t", $sp, map { $stats{$sp}->{$_} || 'NA' } @header ), "\n";
+    print join( "\t", $sp, map { exists $stats{$sp}->{$_} ? $stats{$sp}->{$_} : 'NA' } @header ), "\n";
 }
